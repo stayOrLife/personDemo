@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -9,7 +9,7 @@
 
   <!-- Bootstrap -->
   <!-- 测试 -->
- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
   <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
@@ -34,7 +34,7 @@
   <div class="container">
 
 
-    <div class="row a" id="first" cengshu="1">
+    <div class="row a b" id="first" cengshu="1">
      <div class="col-md-2 col-xs-2 col-sm-2 col-bg-2 center" >
       <div class="row">
         <div class="col-md-12 col-sx-12 col-sm-12 col-bg-12" ><input type="text" placeholder="级别" class="form-control jibie" style="margin: 0"></div>
@@ -72,8 +72,8 @@
 
 
 
- <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+ <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -120,7 +120,25 @@
         jisuan2(box[i]);
     }
 
+    shape();
+
   }
+
+   function shape(){
+    var rows  = document.getElementsByClassName("b");
+    var box ;
+    var len;
+    var off;
+   for (var i =0;i<rows.length;i++){
+       box = rows[i].getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center");
+       len = box.length;
+       off = "col-md-offset-"+(12-2*len)/2;
+       console.log(off)
+       box[0].classList.add(off);
+   }
+
+  }
+
 
   function createElem(e){
     //下一行
@@ -129,7 +147,7 @@
       if(e.target.parentElement.parentElement.parentElement.parentElement.id != "first"){//如果不是第一层
         if(e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("cengshu") == shendu ){
          var row = document.createElement("div");
-         row.className = "row a";
+         row.className = "row a b";
          row.style.marginTop="20px";
          row.setAttribute("cengshu",parseInt(e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("cengshu"))+1);
          shendu++;
@@ -138,7 +156,7 @@
          e.target.parentElement.parentElement.parentElement.parentElement.parentElement.appendChild(row);
        }else{
           //在该盒子的子列中 加入子盒子，其中行层数为 给对象层数+1
-          var a = container[0].getElementsByClassName("row a");//所有的行
+          var a = container[0].getElementsByClassName("row a b");//所有的行
           //该行中的盒子
           var b = e.target.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center");
           var n = e.target.parentElement.parentElement.parentElement.parentElement.nextElementSibling.getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center");//表示子盒子行的盒子
@@ -168,7 +186,7 @@
        }
      }else{
        var row = document.createElement("div");
-       row.className = "row";
+       row.className = "row b";
        row.style.marginTop="20px";
        row.setAttribute("cengshu",2);
        shendu++;
