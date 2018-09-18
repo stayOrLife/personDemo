@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>Bootstrap 101 Template</title>
+
+  <!-- Bootstrap -->
+  <!-- 测试 -->
+ <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+  <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    .center{
+      /*position: relative;
+      left: 50%;
+      transform: translateX(-50%);*/
+    }
+    .row{
+      padding-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="text-center">请输入顶级 级别(A:1 B:2 C:5 D:10 E:20 F:50)</div> 
+
+  <div class="container">
+
+
+    <div class="row a" id="first" cengshu="1">
+     <div class="col-md-2 col-xs-2 col-sm-2 col-bg-2 center" >
+      <div class="row">
+        <div class="col-md-12 col-sx-12 col-sm-12 col-bg-12" ><input type="text" placeholder="级别" class="form-control jibie" style="margin: 0"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sx-6 col-sm-6 col-bg-6 btn"><input type="text" class="form-control" placeholder="op1"> </div>
+        <div class="col-md-6 col-sx-6 col-sm-6 col-bg-6 btn"><input type="text" class="form-control" placeholder="op2"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sx-6 col-sm-6 col-bg-6"><div class="left form-control"></div></div>
+        <div class="col-md-6 col-sx-6 col-sm-6 col-bg-6"><div class="right form-control"></div></div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- 結束 -->
+</div>
+
+
+
+
+
+
+
+
+
+<!-- container结束 -->
+</div>
+
+
+
+
+
+ <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script>
+  var jibie = document.getElementsByClassName("jibie");
+  //实际的父节点
+  var container =  document.getElementsByClassName("container");
+  var shendu = 1;
+  var box = document.getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center");
+
+  container[0].onchange = function(e){
+    var value = e.target.value;
+    if(e.target.className == "form-control jibie"){
+      switch(value){
+        case 'A':e.target.value =" 1";
+        break;
+        case 'B':e.target.value =" 2";
+        break;
+        case 'C':e.target.value =" 5";
+        break;
+        case 'D':e.target.value =" 10";
+        break;
+        case 'E':e.target.value =" 20";
+        break;
+        case 'F':e.target.value =" 50";
+        break;
+        default:
+        e.target.value="";
+        alert("请输入A、B、C、D、E、F");
+        return ;
+      }
+    }else{
+      var reg = new RegExp("^[0-9]*$");
+      if(!reg.test(value)){
+        e.target.value = "";
+        alert("请输入任意长度的整数");
+        return ;
+      }
+    }
+
+      createElem(e);
+    for(var i =box.length-1;i>=0;i--){
+        jisuan2(box[i]);
+    }
+
+  }
+
+  function createElem(e){
+    //下一行
+    if(typeof(e.target.getAttribute("flag"))=="object"){
+      //flag表示是否该box是否已经创建子box，当flag不存在时表示为创建，需要创建新盒子
+      if(e.target.parentElement.parentElement.parentElement.parentElement.id != "first"){//如果不是第一层
+        if(e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("cengshu") == shendu ){
+         var row = document.createElement("div");
+         row.className = "row a";
+         row.style.marginTop="20px";
+         row.setAttribute("cengshu",parseInt(e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("cengshu"))+1);
+         shendu++;
+         row.appendChild(createBox());
+         row.appendChild(createBox());
+         e.target.parentElement.parentElement.parentElement.parentElement.parentElement.appendChild(row);
+       }else{
+          //在该盒子的子列中 加入子盒子，其中行层数为 给对象层数+1
+          var a = container[0].getElementsByClassName("row a");//所有的行
+          //该行中的盒子
+          var b = e.target.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center");
+          var n = e.target.parentElement.parentElement.parentElement.parentElement.nextElementSibling.getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center");//表示子盒子行的盒子
+          var count=0;//表示在该对象之前有多少个盒子已经创建了新盒子
+          for(var i =0;i<b.length;i++){
+            if(b[i] == e.target.parentElement.parentElement.parentElement){
+              break;
+            }
+            var input = b[i].getElementsByTagName('input');
+            for(var j = 0; j<input.length;j++){
+              if(input[j].getAttribute("flag")==1){
+                count++;
+                break;
+              }
+            }
+          }
+          var c = count*2;//表示需要在都少个盒子之后添加子盒子
+          if(c==0){
+            a[e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("cengshu")-1].insertBefore(createBox(),n[0]);
+            a[e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("cengshu")-1].insertBefore(createBox(),n[0]);
+
+          }else{
+           a[e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("cengshu")-1].insertBefore(createBox(),n[c-1].nextElementSibling);
+           a[e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("cengshu")-1].insertBefore(createBox(),n[c-1].nextElementSibling);
+         }
+
+       }
+     }else{
+       var row = document.createElement("div");
+       row.className = "row";
+       row.style.marginTop="20px";
+       row.setAttribute("cengshu",2);
+       shendu++;
+       row.appendChild(createBox());
+       row.appendChild(createBox());
+       e.target.parentElement.parentElement.parentElement.parentElement.parentElement.appendChild(row);
+     }
+     var input = e.target.parentElement.parentElement.parentElement.getElementsByTagName("input");
+     for (var i = input.length - 1; i >= 0; i--) {
+       input[i].setAttribute("flag",1);
+     }
+   }
+ }
+
+ function createBox(){
+    //一个盒子的列
+    var col = document.createElement("div");
+    col.className = "col-md-2 col-xs-2 col-sm-2 col-bg-2 center";
+      //第一层的内容
+      var diyiceng = document.createElement("div");
+      var diyicengdiv = document.createElement("div");
+      var diyicenginput = document.createElement("input");
+      // diyicenginput.style.margin = "0px";
+      diyicenginput.placeholder = "级别";
+      //第一层样式
+      diyiceng.className = "row";
+      diyicengdiv.className="col-md-12 col-sx-12 col-sm-12 col-bg-12";
+      diyicenginput.className="form-control jibie";
+      //添加第一层子节点
+      diyiceng.appendChild(diyicengdiv);
+      diyicengdiv.appendChild(diyicenginput);
+
+
+      //第二层的内容
+      var dierceng = document.createElement("div");
+      var op1 = document.createElement("div");
+      var input1 = document.createElement("input");
+      var op2 = document.createElement("div");
+      var input2 = document.createElement("input");
+      //第二层样式
+      dierceng.className="row";
+      op1.className="col-md-6 col-sx-6 col-sm-6 col-bg-6 btn";
+      input1.className="form-control";
+      op2.className="col-md-6 col-sx-6 col-sm-6 col-bg-6 btn";
+      input2.className="form-control";
+      //添加为子节点
+      op1.appendChild(input1);
+      op2.appendChild(input2);
+      dierceng.appendChild(op1);
+      dierceng.appendChild(op2);
+
+      //第三层的内容
+      var disanceng = document.createElement("div");
+      var res1 = document.createElement("div");
+      var d1 = document.createElement("div");
+      var res2 = document.createElement("div");
+      var d2 = document.createElement("div");
+      //添加为样式
+      disanceng.className="row";
+      res1.className="col-md-6 col-sx-6 col-sm-6 col-bg-6";
+      d1.className="left form-control";
+      res2.className="col-md-6 col-sx-6 col-sm-6 col-bg-6";
+      d2.className="right form-control";
+      //添加为子节点
+      res1.appendChild(d1);
+      res2.appendChild(d2);
+      disanceng.appendChild(res1);
+      disanceng.appendChild(res2);
+
+      col.appendChild(diyiceng);
+      col.appendChild(dierceng);
+      col.appendChild(disanceng);
+      return col;
+    }
+
+
+
+
+
+    function jisuan2(box) {
+
+         // console.log(box.parentElement.nextElementSibling);
+         // 原因从后往前遍历box并且是先遍历后生成box
+          if(box.parentElement.nextElementSibling!=null){
+            var childRow = box.parentElement.nextElementSibling;
+            var childBoxs = childRow.getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center");
+            var targetRowBox = box.parentElement.getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center");
+            var targetBoxInput = box.getElementsByTagName("input");
+
+            var count = 0;
+            var targetBoxFlag;
+
+           for(var i =0;i<targetRowBox.length;i++){
+               if(targetRowBox[i] == box){
+                   break;
+               }
+
+               var temp = targetRowBox[i].getElementsByTagName("input");
+               for (var j =0;j<temp.length;j++){
+                   if(temp[j].getAttribute("flag") == 1){
+                       count++;
+                       break;
+                   }
+               }
+
+           }
+
+            console.log(count,box,temp)
+
+
+
+            if(count == 0){
+                //childBoxs[0]和childBoxs[1]即为box子对象
+                var input = childBoxs[0].getElementsByTagName("input");
+                var arr = getInt(input[0].value,input[1].value,input[2].value);
+                // 计算左边的值
+                var res = jiafa(arr[0],arr[1],arr[2]);
+                // console.log(res,box)
+                if(res!=-1){
+                    targetBoxInput[1].value = res;
+                }
+                //计算右边的值
+                input = childBoxs[1].getElementsByTagName("input");
+                arr = getInt(input[0].value,input[1].value,input[2].value);
+                res = jiafa(arr[0],arr[1],arr[2]);
+                if(res!=-1){
+                    targetBoxInput[2].value = res;
+                }
+                var input = box.getElementsByTagName("input");
+                var targetLeft = box.getElementsByClassName("left");
+                var targetRight = box.getElementsByClassName("right");
+                var res = jianfa(input[1].value,input[2].value);
+                if(res>=0){
+                   targetLeft[0].innerHTML = res;
+                    targetRight[0].innerHTML = "";
+                }else{
+                    targetRight[0].innerHTML = res;
+                    targetLeft[0].innerHTML = "";
+                }
+            }else{
+                //
+                var childboxNumber = [count*2,count*2+1];
+                var temp = childRow.getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center");
+                var childBoxs = [temp[childboxNumber[0]],temp[childboxNumber[1]]];
+
+                if (childBoxs[0] == undefined) {
+                    return;
+                }
+
+                var input = childBoxs[0].getElementsByTagName("input");
+                var arr = getInt(input[0].value,input[1].value,input[2].value);
+                // 计算左边的值
+                var res = jiafa(arr[0],arr[1],arr[2]);
+                if(res!=-1){
+                    targetBoxInput[1].value = res;
+                }
+                //计算右边的值
+                input = childBoxs[1].getElementsByTagName("input");
+                arr = getInt(input[0].value,input[1].value,input[2].value);
+                res = jiafa(arr[0],arr[1],arr[2]);
+                if(res!=-1){
+                    targetBoxInput[2].value = res;
+                }
+                var input = box.getElementsByTagName("input");
+                var targetLeft = box.getElementsByClassName("left");
+                var targetRight = box.getElementsByClassName("right");
+                var res = jianfa(input[1].value,input[2].value);
+                if(res>=0){
+                    targetLeft[0].innerHTML = res;
+                    targetRight[0].innerHTML = "";
+                }else{
+                    targetRight[0].innerHTML = res;
+                    targetLeft[0].innerHTML = "";
+                }
+
+
+
+            }
+
+          }else{
+              // console.log("123")
+          }
+
+    }
+
+
+    function getInt() {
+         var arr = [];
+        for (var i =0;i<arguments.length;i++){
+            arr[i] = parseInt(arguments[i]);
+        }
+        return arr;
+    }
+
+    function jiafa(a,b,c) {
+      var sum = 0;
+      if(!isNaN(a)||!isNaN(b)||!isNaN(c)){
+          if(!isNaN(a)){
+              sum+=a;
+          }
+          if(!isNaN(b)){
+              sum+=b;
+          }
+          if(!isNaN(c)){
+              sum+=c;
+          }
+          return sum;
+      }else if(isNaN(a)&&isNaN(b)&&isNaN(c)){
+          return -1;
+      }
+
+    }
+
+    function jianfa(a,b) {
+      if(isNaN(a)&&isNaN(b)){
+          return 0;
+      }else if(isNaN(a)&&!isNaN(b)){
+          return -b;
+      }else if(!isNaN(a)&&isNaN(b)){
+          return a;
+      }else{
+          return a-b;
+      }
+    }
+
+    function  test() {
+
+    }
+    test();
+
+  //   function jisuan(e){
+  //     var targetRow = e.target.parentElement.parentElement.parentElement.parentElement;
+  //     var targetBox = e.target.parentElement.parentElement.parentElement;
+  //     if(targetRow.id!="first"){//不是第一个盒子
+  //       var targetRowBox = targetRow.getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center");
+  //       // console.log(targetRowBox);
+  //       for(var i=0;i<targetRowBox.length;i++){
+  //         if(targetRowBox[i] == e.target.parentElement.parentElement.parentElement){
+  //           break;
+  //         }
+  //       }
+  //       var targetRowBoxBeforeTargetCount = i;
+  //       // console.log(targetRowBoxBeforeTargetCount);
+  //       var b = targetRowBoxBeforeTargetCount%2;
+  //       var parent = find_parent(e,targetRowBoxBeforeTargetCount);
+  //       var parentInput = parent.getElementsByTagName("input");
+  //       var left = parent.getElementsByClassName("left form-control")[0];
+  //       var right = parent.getElementsByClassName("right form-control")[0];
+  //       var targetInput = targetBox.getElementsByTagName("input");
+  //       if(b == 0){
+  //         //该盒子为父的op1
+  //         parentInput[1].value = sum(targetInput[0].value,targetInput[1].value,targetInput[2].value);
+  //       }else{
+  //         //该盒子为父的op2
+  //         parentInput[2].value = sum(targetInput[0].value,targetInput[1].value,targetInput[2].value);
+  //       }
+  //       //计算减法值
+  //       var arr = getInt(parentInput[1].value,parentInput[2].value);
+  //       var res = jianFa(arr);
+  //       if(res>=0){
+  //         left.innerHTML = res;
+  //         right.innerHTML = "";
+  //       }else{
+  //         right.innerHTML = res;
+  //         left.innerHTML = "";
+  //       }
+  //     }
+  //
+  //   }
+  //
+  //   function find_parent(e,targetRowBoxBeforeTargetCount){
+  //   //寻找父级盒子
+  //   var c = targetRowBoxBeforeTargetCount/2;
+  //   var parentRow = e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling;
+  //   var parent = parentRow.getElementsByClassName("col-md-2 col-xs-2 col-sm-2 col-bg-2 center")[Math.floor(c)];
+  //   // console.log(parent,c,targetRowBoxBeforeTargetCount);
+  //   return parent;
+  // }
+  //
+  // function sum(aa,bb,cc){
+  //   var sum=0;
+  //   var a = parseInt(aa);
+  //   var b = parseInt(bb);
+  //   var c = parseInt(cc);
+  //   if(!isNaN(a)||!isNaN(b)||!isNaN(c)){
+  //     if(!isNaN(a)){
+  //       sum+=a;
+  //     }
+  //     if (!isNaN(b)) {
+  //       sum+=b;
+  //     }
+  //     if (!isNaN(c)) {
+  //       sum+=c;
+  //     }
+  //   }
+  //   return sum;
+  // }
+  //
+  // function jianFa(arr){
+  //   if(!isNaN(arr[0])||!isNaN(arr[1])){
+  //     if(isNaN(arr[0])){
+  //       return -arr[1];
+  //     }else if(isNaN(arr[1])){
+  //       return arr[0];
+  //     }else{
+  //       return arr[0]-arr[1];
+  //     }
+  //   }else{
+  //     return 0;
+  //   }
+  // }
+  //
+  //
+  // function getInt(a,b){
+  //   var arr = [];
+  //   arr[0] = parseInt(a);
+  //   arr[1] = parseInt(b);
+  //   console.log(arr);
+  //   return arr;
+  // }
+
+
+
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>
