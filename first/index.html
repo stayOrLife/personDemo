@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -9,7 +9,7 @@
 
   <!-- Bootstrap -->
   <!-- 测试 -->
-  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
   <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
@@ -73,9 +73,9 @@
 
 
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 <script>
@@ -89,17 +89,17 @@
     var value = e.target.value;
     if(e.target.className == "form-control jibie"){
       switch(value){
-        case 'A':e.target.value =" 1";
+        case 'A':e.target.value =" A";
         break;
-        case 'B':e.target.value =" 2";
+        case 'B':e.target.value =" B";
         break;
-        case 'C':e.target.value =" 5";
+        case 'C':e.target.value =" C";
         break;
-        case 'D':e.target.value =" 10";
+        case 'D':e.target.value =" D";
         break;
-        case 'E':e.target.value =" 20";
+        case 'E':e.target.value =" E";
         break;
-        case 'F':e.target.value =" 50";
+        case 'F':e.target.value =" F";
         break;
         default:
         e.target.value="";
@@ -376,7 +376,22 @@
     function getInt() {
          var arr = [];
         for (var i =0;i<arguments.length;i++){
-            arr[i] = parseInt(arguments[i]);
+            switch(value){
+                case 'A': arr[i] = 1;
+                    break;
+                case 'B': arr[i] = 2;
+                    break;
+                case 'C':arr[i] = 5;
+                    break;
+                case 'D':arr[i] = 10;
+                    break;
+                case 'E':arr[i] = 20;
+                    break;
+                case 'F':arr[i] = 50;
+                    break;
+                default:
+                    arr[i] = parseInt(arguments[i]);
+            }
         }
         return arr;
     }
